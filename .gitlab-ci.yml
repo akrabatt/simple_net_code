@@ -5,7 +5,7 @@ build:
   stage: build
   script:
     - echo "Compiling net server code..."
-    - gcc -o my_server server/main.c
+    - gcc -o my_server ./server/main.c
   artifacts:
     paths:
       - my_server
