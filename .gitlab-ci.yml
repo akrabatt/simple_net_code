@@ -1,0 +1,11 @@
+stages:
+  - build server
+
+build:
+  stage: build server
+  script:
+    - echo "Compiling net code..."
+    - gcc -o  main.c
+  artifacts:
+    paths:
+      - my_server
