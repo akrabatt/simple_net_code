@@ -1,6 +1,5 @@
-#include "include.h"
 #include "define.h"
-#include <netinet/in.h>
+#include "include.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -8,56 +7,45 @@
 
 int main()
 {
-    int server_fd, new_socket;
-    struct sockaddr_in address;
-    int addrlen = sizeof(address);
+    int sock = 0;
+    struct sockaddr_in serv_addr;
+    char* message_for_server = "Привет от клиента!";
     char buffer[BUFFER_SIZE] = {0};
-    char* response = "Сообщение получено сервером\n";
 
-    // 1.создаем сокет сервера
-    if((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
+    // 1.создаем сокет для клиента
+    if((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        perror("Ошибка создания сокета");
+        perror("Ошибка соединения сокета\n"); 
+        return -1;
+    }
+
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(PORT);
+
+    // 2.преобразуем IP-адресс и подключаемся к серверу
+    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
+    {
+        perror("Неверный адресс/адресс не поддерживается");
+        close(sock);
         exit(EXIT_FAILURE);
     }
 
-    // 2.настраиваем пар-ры сокета
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY; // принять подключение от любого ip адресса
-    address.sin_port = htons(PORT); // переводим биты в другую последовательность htons
-
-    // 3.привязываем сокет к порту
-    if(bind(server_fd, (struct sockaddr*)&address, sizeof(address)) < 0)
+    if(connect(sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0)
     {
-        perror("Ошибка привязки привязки сокета\n");
-        close(server_fd);
+        perror("Ошибка подключения\n");
+        close(sock);
         exit(EXIT_FAILURE);
     }
 
-    // 4.начинаем слушать подключения 
-    if(listen(server_fd, CLIENTS_) < 0)
-    {
-        perror("Ошибка прослушивания\n");
-        close(server_fd);
-        exit(EXIT_FAILURE);
-    }
+    // 3.Отправляем сообщение серверу
+    send(sock, message_for_server, strlen(message_for_server), 0);
+    printf("Сообщение отправлено\n");
 
-    printf("Сервер запущен и ожидает подключения клиента...\n");
+    // 4.Ждем ответа от сервера
+    read(sock, buffer, BUFFER_SIZE);
+    printf("Ответ от сервера: %s\n", buffer);
 
-    // 5.ожидаем подключения клиента
-    if((new_socket = accept(server_fd, (struct sockaddr* )&address, (socklen_t*)&addrlen)) < 0)
-    {
-        perror("Ошибка при принятии подключения\n");
-        close(server_fd);
-        exit(EXIT_FAILURE);
-    }
-
-    // 6.читаем Сообщение от клиента и заполняем буффер
-    read(new_socket, buffer, BUFFER_SIZE);
-    printf("Сообщение от клиента: s%\n", buffer);
-
-    send(new_socket, response, strlen(response), 0);
-    printf("Сообщение клиенту отправлено\n");
+    close(sock);
 
     return 0;
 }

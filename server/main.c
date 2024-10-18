@@ -1,10 +1,4 @@
 #include "include.h"
-#include "define.h"
-#include <netinet/in.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
 int main()
 {
@@ -54,7 +48,7 @@ int main()
 
     // 6.читаем Сообщение от клиента и заполняем буффер
     read(new_socket, buffer, BUFFER_SIZE);
-    printf("Сообщение от клиента: s%\n", buffer);
+    printf("Сообщение от клиента: %s\n", buffer);
 
     send(new_socket, response, strlen(response), 0);
     printf("Сообщение клиенту отправлено\n");

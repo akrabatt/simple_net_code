@@ -6,6 +6,8 @@
 #include <stdlib.h>   // для общих функций
 #include <unistd.h>   // для системных вызовов
 #include <arpa/inet.h>    // для сетевых функций 
+#include <netinet/in.h>
+#include "define.h"
 
 
 #endif // INCLUDE_H
