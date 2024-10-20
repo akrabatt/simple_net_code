@@ -9,8 +9,9 @@ int main()
 {
     int sock = 0;
     struct sockaddr_in serv_addr;
-    char* message_for_server = "Привет от клиента!";
+    char message_for_server [MESSAGE_FOR_SERVER] = {0};
     char buffer[BUFFER_SIZE] = {0};
+    char ip_addr[IP_ADDR_LEN] = {0};
 
     // 1.создаем сокет для клиента
     if((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -22,8 +23,12 @@ int main()
     serv_addr.sin_family = AF_INET;
     serv_addr.sin_port = htons(PORT);
 
+    printf("Введите ip адресс сервера: ");
+    fgets(ip_addr, IP_ADDR_LEN, stdin);
+    ip_addr[strcspn(ip_addr, "\n")] = 0; // заменяем символ на нуль-терминатор 
+
     // 2.преобразуем IP-адресс и подключаемся к серверу
-    if(inet_pton(AF_INET, "127.0.0.1", &serv_addr.sin_addr) <= 0)
+    if(inet_pton(AF_INET, ip_addr, &serv_addr.sin_addr) <= 0)
     {
         perror("Неверный адресс/адресс не поддерживается");
         close(sock);
@@ -36,6 +41,9 @@ int main()
         close(sock);
         exit(EXIT_FAILURE);
     }
+
+    printf("Введите сообщение для сервера: ");
+    fgets(message_for_server, MESSAGE_FOR_SERVER, stdin);
 
     // 3.Отправляем сообщение серверу
     send(sock, message_for_server, strlen(message_for_server), 0);
