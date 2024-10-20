@@ -1,9 +1,4 @@
-#include "define.h"
 #include "include.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
 int main()
 {
@@ -25,7 +20,7 @@ int main()
 
     printf("Введите ip адресс сервера: ");
     fgets(ip_addr, IP_ADDR_LEN, stdin);
-    ip_addr[strcspn(ip_addr, "\n")] = 0; // заменяем символ на нуль-терминатор 
+    
 
     // 2.преобразуем IP-адресс и подключаемся к серверу
     if(inet_pton(AF_INET, ip_addr, &serv_addr.sin_addr) <= 0)
