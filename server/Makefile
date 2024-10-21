@@ -1,7 +1,7 @@
 C = gcc
 CFLAGS = -Wall -g
 TARGET = server
-OBJS = main.o global.c
+OBJS = main.o global.o
 
 $(TARGET): $(OBJS)
 	$(C) $(CFLAGS) -o $(TARGET) $(OBJS)

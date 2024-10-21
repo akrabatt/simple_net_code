@@ -1,7 +1,6 @@
 #ifndef GLOBAL_H
 #define GLOBAL_H
 
-#include "define.h"
 extern int server_fd;                     // сокет для сервера
 extern int new_socket;                    // сокет для клиента
 extern struct sockaddr_in address;        // структура адресса сокета
