@@ -2,12 +2,6 @@
 
 int main()
 {
-    int server_fd, new_socket;
-    struct sockaddr_in address;
-    int addrlen = sizeof(address);
-    char buffer[BUFFER_SIZE] = {0};
-    char* response = "Сообщение получено сервером\n";
-
     // 1.создаем сокет сервера
     if((server_fd = socket(AF_INET, SOCK_STREAM, 0)) == 0)
     {

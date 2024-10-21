@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(Cserver)
 
-set(SOURCE main.c)
+set(SOURCE main.c global.c)
 
 add_executable(Cserver ${SOURCE})
 
