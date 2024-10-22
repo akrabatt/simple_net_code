@@ -9,6 +9,7 @@
 #include <netinet/in.h>
 #include "define.h"
 #include "global.h"
+#include "fun.h"
 
 
 #endif // INCLUDE_H

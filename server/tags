@@ -5,7 +5,21 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BUFFER_SIZE	define.h	5;"	d
+C	Makefile	/^C = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -Wall -g$/;"	m
+CLIENTS_	define.h	6;"	d
 DEFINE_H	define.h	2;"	d
+FUN_H	fun.h	2;"	d
+GLOBAL_H	global.h	2;"	d
 INCLUDE_H	include.h	2;"	d
+OBJS	Makefile	/^OBJS = main.o global.o fun.o$/;"	m
 PORT	define.h	4;"	d
+TARGET	Makefile	/^TARGET = server$/;"	m
+address	global.c	/^struct sockaddr_in address;         \/\/ структура адресса сокета$/;"	v	typeref:struct:sockaddr_in
+addrlen	global.c	/^int addrlen = sizeof(address);      \/\/ размер структура адресса сервера$/;"	v
+buffer	global.c	/^char buffer[BUFFER_SIZE] = {0};     \/\/ буффер для входящих сообщений$/;"	v
+create_server	fun.c	/^void create_server()$/;"	f
 main	main.c	/^int main()$/;"	f
+new_socket	global.c	/^int new_socket;                     \/\/ сокет клиента               $/;"	v
+response	global.c	/^char* response = "Сообщение получено сервером\\n";    \/\/ ответ сервера$/;"	v
+server_fd	global.c	/^int server_fd;                      \/\/ сокет сервера$/;"	v
