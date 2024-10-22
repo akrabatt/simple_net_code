@@ -12,5 +12,8 @@ int main()
     send(new_socket, response, strlen(response), 0);
     printf("Сообщение клиенту отправлено\n");
 
+    // закрываем сокеты
+    close_sockets();
+
     return 0;
 }

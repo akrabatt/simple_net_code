@@ -6,4 +6,9 @@
  */
 void create_server();
 
+/**
+ * @brief функция по закритию сервера и сокета
+ */
+void close_sockets();
+
 #endif // FUN_H

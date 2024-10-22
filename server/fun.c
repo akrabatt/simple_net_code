@@ -1,5 +1,8 @@
 #include "include.h"
 
+/**
+ * @brief функция по созданию сервера, создает сокет и заполняет адресс
+ */
 void create_server()
 {
     // 1.создаем сокет сервера
@@ -39,4 +42,13 @@ void create_server()
         close(server_fd);
         exit(EXIT_FAILURE);
     }
+}
+
+/**
+ * @brief функция по закритию сервера и сокета
+ */
+void close_sockets()
+{
+    close(server_fd);
+    close(server_fd);
 }
